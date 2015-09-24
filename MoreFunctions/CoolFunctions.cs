@@ -29,33 +29,74 @@ namespace MoreFunctions
                 return n;
             }
         }
+        
+        public int[] swapInPlace(int[] inputs, int left_most_index, int right_most_index)
+        {
+            return null;
+        }
+
+        public static bool isSorted(int[] inputs)
+        {
+            for (int i = 0; i < inputs.Length - 1; i++)
+            {
+                if (inputs[i] > inputs[i+1])
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
 
         public static int[] InsertionSort(int[] inputs)
         {
             var answer = new int[inputs.Length];
             var temp = new int[inputs.Length];
+            //get a forreal clone of this array.
             int[] copy_of_inputs = inputs.Clone() as int[];
-            for (var i = 0;i < inputs.Length; i++) {
-                var item = inputs[i];
-                for (var j = 0;j < temp.Length; j++)
+            var i = 0;
+            var j = i + 1; //resets j
+            var swapped = false;
+            var end = false;
+            while (!CoolFunctions.isSorted(copy_of_inputs))// && swapped == false
+            {
+                //whats the job of the outer loop? 
+                //Answer: Tells us when to stop resetting '1' and return results;
+                swapped = false;
+                while (j < copy_of_inputs.Length)
                 {
-                    var second_item = inputs[j];
+                    //what the job of the inner loop?
+                    //Answer: increment '1', compare items and swap
+                    var item = copy_of_inputs[i];
+                    var second_item = copy_of_inputs[j];
                     if (item > second_item)
                     {
-                        var tmp1 = item;
-                        var tmp2 = second_item;
-                        item = tmp2;
-                        second_item = tmp1;
-                    } else
-                    {
-                        // Leave it?
+                        //Let's swap. Seems useful....
+                        var tmpa = item;
+                        var tmpb = second_item;
+                        copy_of_inputs[i] = tmpb; // The item located at 'j'
+                        copy_of_inputs[j] = tmpa;
+                        //j++; // keep an eye on this / keeps it moving in the loop to break out of it
+                        swapped = true;
                     }
-
+                    if (j == copy_of_inputs.Length - 1) //if the length is 12 then the last index postion is 11 - jen.
+                    {
+                        i = 0;
+                        break;
+                    }
+                    else
+                    {
+                        i++;
+                    }
+                    j = i + 1; // The same as j++;
+                }// end of the INNER while loop
+                if (swapped == false)
+                {
+                    break; // if the inner while loop does not swap any items, we're done.
                 }
-
-                //var item2 = inputs[i+1];
+                
             }
-            return answer;
+            return copy_of_inputs;
+
         }
     }
 }

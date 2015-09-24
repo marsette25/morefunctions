@@ -30,10 +30,28 @@ namespace MoreFunctionsUnitTests
         [TestMethod]
         public void TestInsertionSort()
         {
-            int[] unsorted = new int[] { 5, 4, 3, 2, 1 };
-            int[] sorted = new int[] { 1, 2, 3, 4, 5 };
-            CollectionAssert.AreEqual(sorted, CoolFunctions.InsertionSort(unsorted));
+            int[] unsorted = new int[] { 5, 4, 7, 2, 1 };
+            int[] sorted = new int[] { 1, 2, 7, 4, 5 };
+            int[] myarray = CoolFunctions.InsertionSort(unsorted);
+            for (var i = 0; i < unsorted.Length; i++)
+            {
+                Assert.AreEqual(sorted[i], myarray[i]);
+            }
+           // CollectionAssert.AreEqual(sorted, ));
         }
 
+        [TestMethod]
+        public void TestIsNotSorted()
+        {
+            int[] unsorted = new int[] { 5, 4, 7, 2, 1 };
+            Assert.IsFalse(CoolFunctions.isSorted(unsorted));
+        }
+
+        [TestMethod]
+        public void TestIsSorted()
+        {
+            int[] sorted = new int[] { 1, 2, 4, 5, 7 };
+            Assert.IsTrue(CoolFunctions.isSorted(sorted));
+        }
     }
 }
